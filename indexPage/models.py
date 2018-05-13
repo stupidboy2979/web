@@ -15,7 +15,7 @@ class User(models.Model):
     portal = models.CharField(max_length=20)
     das = models.IntegerField()
     dpc = models.CharField(max_length=20)
-    creatDate = models.DateField(auto_now_add=False)
+    creatDate = models.DateField(auto_now_add=True)
     circuits = models.ManyToManyField(Circuit)
 
 
