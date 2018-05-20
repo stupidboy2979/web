@@ -39,6 +39,7 @@ class Number(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=20, unique=True)
     numbers = models.ForeignKey(Number, related_name='company', on_delete=models.CASCADE)
+    location = models.CharField(max_length=20)
     portal = models.CharField(max_length=10)
     das = models.IntegerField(unique=True)
     dpc = models.CharField(max_length=11, unique=True)

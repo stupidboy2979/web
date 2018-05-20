@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-# from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import time
-from indexPage.models import Circuit, User
+from indexPage.models import *
 
 
 # Create your views here.
@@ -22,3 +22,15 @@ def InitUser(request):
 
     return HttpResponse('<title>InitUser</title><h>InitUser Done!!!</h>')
 
+
+def Companies(request, location,p):
+    locations = {'hs': '洪山',
+                 'yfc': '营房村',
+                 }
+    companies = Company.objects.filter(location=location)
+    return render(request, 'companies.html', {'companies': companies[0+p*20:19+p*20], 'location': locations[location]})
+
+
+def company_detail(request, name):
+    # company = get_object_or_404(Company, name=name)
+    return render(request, 'detail.html', {'company': name})

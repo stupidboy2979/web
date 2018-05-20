@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from indexPage.views import hello, InitUser
+from indexPage.views import *
 from django.conf.urls import url
 
 urlpatterns = [
@@ -23,4 +23,6 @@ urlpatterns = [
     path('hello/', hello),
     # url(r'$', hello),
     path(r'InitUser/', InitUser),
+    path(r'companies/<str:location>/<int:p>', Companies),
+    path(r'detail/<str:name>/', company_detail, name='detail'),
 ]
