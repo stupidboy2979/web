@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from indexPage.views import *
-from django.conf.urls import url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', hello),
-    # url(r'$', hello),
+    path('hello/<str:name>-<str:message>', hello, name='home'),
     path(r'InitUser/', InitUser),
-    path(r'companies/<str:location>/<int:p>', Companies),
+    path(r'companies/<str:location>/<int:p>', Companies, name='companies'),
+    path(r'companies/new/', new_company),
     path(r'detail/<str:name>/', company_detail, name='detail'),
 ]

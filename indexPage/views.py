@@ -1,12 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 import time
 from indexPage.models import *
 
 
 # Create your views here.
-def hello(request):
-    str = '<title>Hello wrold!!!</title><h>你好%s</h>' % (time.time())
+def hello(request, name, message):
+    str = '<title>Hello wrold!!!</title><h>%s你好</h><h>%s</h>' % (name, message)
     return HttpResponse(str)
 
 
@@ -34,3 +34,12 @@ def Companies(request, location,p):
 def company_detail(request, name):
     # company = get_object_or_404(Company, name=name)
     return render(request, 'detail.html', {'company': name})
+
+
+def new_company(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        message = request.POST['message']
+        return redirect('home', name=name, message=message)
+    return render(request, 'new_company.html', )
+
