@@ -1,15 +1,26 @@
-{% load static %}<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>用户列表</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  </head>
-  <body>
-    <div class="container">
-      <ol class="breadcrumb my-4">
-        <li class="breadcrumb-item active">{{ location }}用户列表</li>
-      </ol>
+{% extends 'base.html' %}
+{% block title %}用户列表{% endblock %}
+{% block breadcrumb %}
+{#    {% if location == '洪山' %}#}
+{#        <li class="breadcrumb-item active">洪山用户列表</li>#}
+{#        <li class="breadcrumb-item "><a href="{% url 'companies' 'yfc' 0 %}">营房用户列表</a></li>#}
+{#    {% elif location == '营房村'%}#}
+{#        <li class="breadcrumb-item "><a href="{% url 'companies' 'hs' 0 %}">洪山用户列表</a></li>#}
+{#        <li class="breadcrumb-item active">营房用户列表</li>#}
+{#    {% endif %}#}
+    {% for i in location_list %}
+        {% if i == location %}
+            <li class="breadcrumb-item active">{{ i }}用户列表</li>
+        {% else %}
+            <li class="breadcrumb-item "><a href="{% url 'companies' i 0 %}">{{ i }}用户列表</a></li>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'new_company'%}" class="btn btn-primary">添加用户</a>
+    </div>
       <table class="table">
         <thead class="thead-inverse">
           <tr>
@@ -42,6 +53,4 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>
-  </body>
-</html>
+{% endblock %}

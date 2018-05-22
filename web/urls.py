@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/<str:name>-<str:message>', hello, name='home'),
     path(r'InitUser/', InitUser),
+    path(r'', Companies, name='index'),
     path(r'companies/<str:location>/<int:p>', Companies, name='companies'),
-    path(r'companies/new/', new_company),
+    path(r'companies/new/', new_company, name='new_company'),
     path(r'detail/<str:name>/', company_detail, name='detail'),
 ]

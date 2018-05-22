@@ -23,12 +23,15 @@ def InitUser(request):
     return HttpResponse('<title>InitUser</title><h>InitUser Done!!!</h>')
 
 
-def Companies(request, location,p):
-    locations = {'hs': '洪山',
-                 'yfc': '营房村',
-                 }
+def Companies(request, location='洪山',p=0):
+    locations = ['洪山',
+                 '营房村',
+                 ]
     companies = Company.objects.filter(location=location)
-    return render(request, 'companies.html', {'companies': companies[0+p*20:19+p*20], 'location': locations[location]})
+    return render(request, 'companies.html', {'companies': companies[0+p*20:19+p*20],
+                                              'location_list': locations,
+                                              'location': location,
+                                              })
 
 
 def company_detail(request, name):
