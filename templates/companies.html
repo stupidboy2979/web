@@ -24,21 +24,23 @@
       <table class="table">
         <thead class="thead-inverse">
           <tr>
-            <th>用户名</th>
-            <th>协议</th>
-            <th>所在局向</th>
-            <th>工单号</th>
+              <th>用户名</th>
+              <th>协议</th>
+              <th>所在局向</th>
+              <th>工单号</th>
+              <th>备注</th>
           </tr>
         </thead>
         <tbody>
         <tr>
-            <td>
-                <a href="{% url 'detail' '飞机' %}"> 飞机</a>
+             <td>
+飞机
+                                   </td>
+                  <td class="align-middle">0</td>
+                  <td class="align-middle">0</td>
+                  <td class="align-middle">0</td>
                 <small class="text-muted d-block">{{ company.portal }}</small>
-            </td>
-            <td class="align-middle">0</td>
-            <td class="align-middle">0</td>
-            <td class="align-middle">0</td>
+
         </tr>
           {% for company in companies %}
             <tr>
@@ -53,4 +55,26 @@
           {% endfor %}
         </tbody>
       </table>
+    <script>
+    var $table = $('#table'),
+        $button = $('#button'),
+        $button2 = $('#button2');
+
+    $(function () {
+        $button.click(function () {
+            $table.bootstrapTable('expandRow', 1);
+        });
+        $button2.click(function () {
+            $table.bootstrapTable('collapseRow', 1);
+        });
+    });
+
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+</script>
 {% endblock %}
