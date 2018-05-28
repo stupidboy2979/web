@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-import time
 from indexPage.models import *
 
 
@@ -23,26 +22,31 @@ def InitUser(request):
     return HttpResponse('<title>InitUser</title><h>InitUser Done!!!</h>')
 
 
-def Companies(request, location='洪山',p=0):
+def companies_list(request, location='洪山',p=0):
     locations = ['洪山',
                  '营房村',
                  ]
     companies = Company.objects.filter(location=location)
-    return render(request, 'companies.html', {'companies': companies[0+p*20:19+p*20],
+    return render(request, 'companies.html', {
+        'companies': companies,
                                               'location_list': locations,
                                               'location': location,
                                               })
 
 
-def company_detail(request, name):
+def company_detail(request, company_name):
     # company = get_object_or_404(Company, name=name)
-    return render(request, 'detail.html', {'company': name})
+    return render(request, 'detail.html', {'company': company_name})
 
 
-def new_company(request):
+def new_company(request, location='洪山'):
     if request.method == 'POST':
-        name = request.POST['name']
-        message = request.POST['message']
-        return redirect('home', name=name, message=message)
-    return render(request, 'new_company.html', )
+        company = request.POST
+        # print(company['Name'])
+        return redirect('detail', company_name=company['Name'])
+    if location == '洪山':
+        locations = ['洪山', '徐东', ]
+    else:
+        locations = ['营房村', '合作路', ]
+    return render(request, 'new_company.html', {'location': location, 'locations': locations})
 

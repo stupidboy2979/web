@@ -1,30 +1,30 @@
 {% load static %}<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>{% block title %}用户列表{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
-  </head>
-  <body>
+</head>
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-          <a class="navbar-brand" href="{% url 'companies' '洪山' 0%}">用户列表</a>
-          <a class="navbar-brand" href="{% url 'companies' '洪山' 0%}">高级搜索</a>
-      </div>
-    </nav>
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <ol class="breadcrumb my-4">
+        <a class="navbar-brand" href="{% url 'companies' '洪山' 0 %}">用户列表</a>
+        <a class="navbar-brand" href="{% url 'companies' '洪山' 0 %}">高级搜索</a>
+    </div>
+</nav>
+
+<div class="container">
+    <ol class="breadcrumb my-4">
         {% block breadcrumb %}
         {% endblock %}
-      </ol>
-      {% block content %}
-      {% endblock %}
+    </ol>
+    {% block content %}
+    {% endblock %}
     <script src="{% static 'js/jquery.slim.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    </div>
-  </body>
+</div>
+</body>
 </html>
