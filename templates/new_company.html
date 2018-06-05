@@ -3,7 +3,14 @@
 {% block title %}新建用户{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active">新建{{ location }}MGCF用户</li>
+    {% if location == '洪山' %}
+        <li class="breadcrumb-item active">新建洪山MGCF用户</li>
+        <li class="breadcrumb-item "><a href="{% url 'new_company' '营房村' %}">新建营房村MGCF用户</a></li>
+    {% elif location == '营房村' %}
+        <li class="breadcrumb-item "><a href="{% url 'new_company' '洪山' %}">新建洪山MGCF用户</a></li>
+        <li class="breadcrumb-item active">新建营房村MGCF用户</li>
+    {% endif %}
+{#    <li class="breadcrumb-item active">新建{{ location }}MGCF用户</li>#}
 {% endblock %}
 
 {% block content %}
@@ -19,12 +26,12 @@
                 <input type="text" class="form-control" id="Numbers" name="Numbers" placeholder="87654321">
             </div>
             <div class="form-group col-md-2">
-                <label for="DPC">DPC</label>
-                <input type="text" class="form-control" id="DPC" name="DPC" placeholder="100.1.34">
+                <label for="DPC" id="DPCLabel" hidden="hidden">DPC</label>
+                <input type="text" class="form-control" id="DPC" name="DPC" placeholder="100.1.34" hidden="hidden">
             </div>
             <div class="form-group col-md-2">
-                <label for="Das">主叫白名单选择子</label>
-                <input type="text" class="form-control" id="Das" name="Das" placeholder="600">
+                <label for="Ofcid" id="OfcidLabel" hidden="hidden">邻接局号</label>
+                <input type="text" class="form-control" id="Ofcid" name="Ofcid" placeholder="600" hidden="hidden">
             </div>
             <div class="form-group col-md-2">
                 <label for="Creater">数据制作人</label>
@@ -34,12 +41,12 @@
         <div class="form-row">
             <div class="form-group col-md-10">
                 <label>协议：</label>
-                <div class="radio">
+                <div class="radio" onclick="portalClick()">
                     <label class="radio-inline">
                         <input type="radio" name="portal" id="optionsRadios1" value="PRA" checked> PRA
                         <input type="radio" name="portal" id="optionsRadios2" value="ISUP"> ISUP
                         <input type="radio" name="portal" id="optionsRadios3" value="TUP"> TUP
-                        <input type="radio" name="portal" id="optionsRadios4" value="R2"> R2
+                        <input type="radio" name="portal" id="optionsRadios4" value="R2" disabled="disabled"> R2
                     </label>
                 </div>
             </div>
@@ -159,6 +166,31 @@
                 masInit(8)
             }
         }
+
+        function portalClick(){
+            var p = document.getElementsByName("portal");
+            for (var i = 0, length = p.length; i < length; i++) {
+                if (p[i].checked) {
+                    // 弹出选中值
+                    var portal = p[i].value;
+                    // 选中后退出循环
+                    break;
+                }
+            }
+            if (portal === 'PRA') {
+                document.getElementById("Ofcid").hidden = "hidden";
+                document.getElementById("OfcidLabel").hidden = "hidden";
+                document.getElementById("DPC").hidden = "hidden";
+                document.getElementById("DPCLabel").hidden = "hidden";
+            }
+            else {
+                document.getElementById("Ofcid").removeAttribute("hidden");
+                document.getElementById("OfcidLabel").removeAttribute("hidden");
+                document.getElementById("DPC").removeAttribute("hidden");
+                document.getElementById("DPCLabel").removeAttribute("hidden");
+            }
+        }
+
         function masInit(n){
             var mas = document.getElementById("mas");
             for (var i = mas.options.length - 1; i >= 0; i--) {

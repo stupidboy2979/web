@@ -12,21 +12,21 @@ class Circuit(models.Model):
 
 class MgcfCode(models.Model):
     updated_at = models.DateField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, related_name='+', on_delete=models.CASCADE)
+    updated_by = models.CharField(max_length=20)
     code = models.CharField(max_length=1000)
     remarks = models.CharField(max_length=100, null=True)
 
 
 class MgwCode(models.Model):
     updated_at = models.DateField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, related_name='+', on_delete=models.CASCADE)
+    updated_by = models.CharField(max_length=20)
     code = models.CharField(max_length=1000)
     remarks = models.CharField(max_length=100, null=True)
 
 
 class SssCode(models.Model):
     updated_at = models.DateField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, related_name='+', on_delete=models.CASCADE)
+    updated_by = models.CharField(max_length=20)
     code = models.CharField(max_length=1000)
     remarks = models.CharField(max_length=100, null=True)
 
@@ -45,7 +45,7 @@ class Company(models.Model):
     dpc = models.CharField(max_length=11, unique=True)
     remarks = models.CharField(max_length=100, null=True)
     created_at = models.DateField(auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name='+', on_delete=models.CASCADE)
+    created_by = models.CharField(max_length=20)
     circuits = models.ManyToManyField(Circuit)
     mgcf_code = models.ForeignKey(MgcfCode, related_name='company', on_delete=models.CASCADE)
     mgw_code = models.ForeignKey(MgwCode, related_name='company', on_delete=models.CASCADE)

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from indexPage.models import *
+from .forms import newCompanyForm
 
 
 # Create your views here.
@@ -41,9 +42,25 @@ def company_detail(request, company_name):
 
 def new_company(request, location='洪山'):
     if request.method == 'POST':
-        company = request.POST
-        # print(company['Name'])
-        return redirect('detail', company_name=company['Name'])
+        # company = request.POST
+        print('ok1')
+        form = newCompanyForm(request.POST)
+        if form.is_valid():
+            print('ok')
+            company = form.save(commit=False)
+            company.numbers = Number.objects.create(
+                num=form.cleaned_data.get('Numbers')
+            )
+            company.mgcf_code = MgcfCode.objects.create(
+                code='ppp',
+                updated_by=form.cleaned_data.get('Creater')
+            )
+            company.mgw_code = MgwCode.objects.create(
+                code='ppp',
+                updated_by=form.cleaned_data.get('Creater')
+            )
+            company.circuits.add('pp')
+            return redirect('detail', company_name=company['Name'])
     if location == '洪山':
         locations = ['洪山', '徐东', ]
     else:
